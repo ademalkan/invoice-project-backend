@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
+
+Route::get('/inovices', [InvoiceController::class, 'index']);
+Route::get('/inovice/{invoiceId}', [InvoiceController::class, 'show']);
+Route::post('/inovice/{invoiceId}', [InvoiceController::class, 'destroy']);
+Route::post('/inovice/set-invoice-paid/{invoiceId}', [InvoiceController::class, 'setInvoicePaid']);
+Route::post('/inovice/create', [InvoiceController::class, 'createInvoice']);
 
 Route::post('posts', function () {
     return "adem";
