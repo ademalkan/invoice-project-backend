@@ -17,7 +17,7 @@ interface InvoiceInterfaces
     public function showInvoice(string $invoiceId): ?Response;
     public function destroyInvoice(string $invoiceId): ?Response;
     public function setInvoicePaid(string $invoiceId): ?Response;
-    public function getInvoices(): ?Response;
+    public function getInvoices(object $invoiceRequestData): ?Response;
 }
 /**
  * Class InvoiceRepository.
@@ -48,7 +48,7 @@ class InvoiceRepository implements InvoiceInterfaces
             $invoice->invoice_date = $invoiceRequestData->formData["invoice_date"];
             $invoice->payment_terms = $invoiceRequestData->selectedOption;
             $invoice->project_description = $invoiceRequestData->formData["project_description"];
-            $invoice->status = "pending";
+            $invoice->status = $invoiceRequestData->draft ? "draft" : "pending";
             $invoice->items = $invoiceRequestData->items;
             $invoice->key = self::createRandomInvoiceKey();
 
@@ -119,10 +119,21 @@ class InvoiceRepository implements InvoiceInterfaces
     * This method get all invoice records
     * @return Response
     */
-    public function getInvoices(): ?Response
+    public function getInvoices($invoiceRequestData): ?Response
     {
         try {
-            $invoices = Invoice::orderBy('created_at', 'desc')->get();
+            $query = Invoice::query()->where(function ($query) use ($invoiceRequestData) {
+                if ($invoiceRequestData->draft == 'true') {
+                    $query->orWhere('status', 'draft');
+                }
+                if ($invoiceRequestData->pending == 'true') {
+                    $query->orWhere('status', 'pending');
+                }
+                if ($invoiceRequestData->paid == 'true') {
+                    $query->orWhere('status', 'paid');
+                }
+            });
+            $invoices = $query->orderBy('created_at', 'desc')->get();
             return response()->json([
                 'status' => true,
                 'message' => 'Invoices Get Successfully',
