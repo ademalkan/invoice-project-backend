@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
-
+/**
+ * Interfaces InvoiceRepository.
+ */
 interface InvoiceInterfaces
 {
     public function createInvoice(object $invoiceRequestData): ?Response;
@@ -18,10 +20,16 @@ interface InvoiceInterfaces
     public function getInvoices(): ?Response;
 }
 /**
- * Class AuthRepository.
+ * Class InvoiceRepository.
  */
 class InvoiceRepository implements InvoiceInterfaces
 {
+
+    /*
+    * This method creates a new invoice record
+    * @param invoiceRequestData
+    * @return Response
+    */
     public function createInvoice(object $invoiceRequestData): ?Response
     {
         DB::beginTransaction();
@@ -61,6 +69,12 @@ class InvoiceRepository implements InvoiceInterfaces
             ], 500);
         }
     }
+
+    /*
+    * This method fetches a specific invoice record
+    * @param invoiceId, invoiceRequestData
+    * @return Response
+    */
     public function editInvoice($invoiceId, $invoiceRequestData): ?Response
     {
         DB::beginTransaction();
@@ -100,6 +114,11 @@ class InvoiceRepository implements InvoiceInterfaces
             ], 500);
         }
     }
+
+    /*
+    * This method get all invoice records
+    * @return Response
+    */
     public function getInvoices(): ?Response
     {
         try {
@@ -117,6 +136,11 @@ class InvoiceRepository implements InvoiceInterfaces
         }
     }
 
+    /*
+    * This method brings up the invoice record
+    * @param invoiceId
+    * @return Response
+    */
     public function showInvoice($invoiceId): ?Response
     {
         try {
@@ -133,6 +157,12 @@ class InvoiceRepository implements InvoiceInterfaces
             ], 500);
         }
     }
+
+    /*
+    * This method destroy the invoice record
+    * @param invoiceId
+    * @return Response
+    */
     public function destroyInvoice($invoiceId): ?Response
     {
         DB::beginTransaction();
@@ -156,6 +186,11 @@ class InvoiceRepository implements InvoiceInterfaces
         }
     }
 
+    /*
+    * This method updates the invoice record
+    * @param invoiceId
+    * @return Response
+    */
     public function setInvoicePaid($invoiceId): ?Response
     {
         DB::beginTransaction();
@@ -177,6 +212,10 @@ class InvoiceRepository implements InvoiceInterfaces
         }
     }
 
+    /*
+    * This method generates random key
+    * @return key
+    */
     private function createRandomInvoiceKey()
     {
         $keyFormat = "XX######";

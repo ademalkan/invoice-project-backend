@@ -20,7 +20,7 @@ class InvoiceController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Brings all invoice records
      */
     public function index()
     {
@@ -35,7 +35,8 @@ class InvoiceController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Create a new invoice records
+     * @params request params
      */
     public function createInvoice(Request $request)
     {
@@ -51,7 +52,8 @@ class InvoiceController extends Controller
 
 
     /**
-     * Display the specified resource.
+     * Show a invoice record
+     * @params invoiceId
      */
     public function show($invoiceId)
     {
@@ -66,7 +68,8 @@ class InvoiceController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit a invoice record
+     * @params invoiceId, request
      */
     public function editInvoice($invoiceId, Request $request)
     {
@@ -83,7 +86,8 @@ class InvoiceController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
+     * Destroy a invoice record
+     * @params invoiceId
      */
     public function destroy($invoiceId)
     {

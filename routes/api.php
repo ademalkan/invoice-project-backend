@@ -27,6 +27,7 @@ Route::post('/inovice/create', [InvoiceController::class, 'createInvoice']);
 Route::post('/inovice/{invoiceId}', [InvoiceController::class, 'destroy']);
 Route::post('/inovice/set-invoice-paid/{invoiceId}', [InvoiceController::class, 'setInvoicePaid']);
 
+
 Route::post('posts', function () {
     return "adem";
 })->middleware('auth:sanctum');
