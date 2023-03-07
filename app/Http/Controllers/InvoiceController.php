@@ -20,12 +20,12 @@ class InvoiceController extends Controller
     }
 
     /**
-     * Brings all invoice records
+     * Brings all invoice records and it will filter if status is sent
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            return $this->invoiceRepository->getInvoices();
+            return $this->invoiceRepository->getInvoices($request);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
