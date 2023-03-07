@@ -1,4 +1,4 @@
-# How to crate user ?
+# How to create  a user ?
 
 ## Send request method POST
 
