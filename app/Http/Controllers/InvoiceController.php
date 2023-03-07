@@ -49,13 +49,6 @@ class InvoiceController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreInvoiceRequest $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -75,18 +68,19 @@ class InvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Invoice $invoice)
+    public function editInvoice($invoiceId, Request $request)
     {
-        //
+        try {
+            return $this->invoiceRepository->editInvoice($invoiceId, $request);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateInvoiceRequest $request, Invoice $invoice)
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.
