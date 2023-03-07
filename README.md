@@ -1,4 +1,4 @@
-#How to crate user ?
+# How to crate user ?
 
 ## Send request method POST
 
